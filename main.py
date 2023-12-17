@@ -59,10 +59,13 @@ def main():
     
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            player.look_vector = player.look_vector.rotate(-50)
-            print("turning")
+            player.look_vector = player.look_vector.rotate(-10)
         if keys[pygame.K_RIGHT]:
-            player.look_vector = player.look_vector.rotate(50)
+            player.look_vector = player.look_vector.rotate(10)
+        if keys[pygame.K_UP]:
+            player.pos += player.look_vector
+        if keys[pygame.K_DOWN]:
+            player.pos -= player.look_vector
         
         frame = generate_frame(player.pos, player.look_vector)
 
@@ -70,7 +73,7 @@ def main():
         screen.blit(frame, (0,0))
         pygame.display.flip()
 
-        print(player.look_vector)
+        print(player.pos)
 
 def generate_frame(playerpos : Vector2, lookvector:Vector2) -> pygame.surface:
     camera_plane = lookvector.rotate(90)
