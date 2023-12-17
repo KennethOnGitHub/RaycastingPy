@@ -59,7 +59,7 @@ def main():
     
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            player.look_vector = player.look_vector.rotate(50)
+            player.look_vector = player.look_vector.rotate(-50)
             print("turning")
         if keys[pygame.K_RIGHT]:
             player.look_vector = player.look_vector.rotate(50)
