@@ -40,8 +40,8 @@ world =[
 
 class Player:
     def __init__(self) -> None:
-        self.pos:Vector2 = Vector2(1.5,1.5)
-        self.lookVector:Vector2 = Vector2 (1, -1).normalize()
+        self.pos:Vector2 = Vector2(2,2)
+        self.look_vector:Vector2 = Vector2 (1, -1).normalize()
 
 def main():
     pygame.init()
@@ -56,12 +56,21 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+    
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            player.look_vector = player.look_vector.rotate(50)
+            print("turning")
+        if keys[pygame.K_RIGHT]:
+            player.look_vector = player.look_vector.rotate(50)
         
-        frame = generate_frame(player.pos, player.lookVector)
+        frame = generate_frame(player.pos, player.look_vector)
 
         screen.fill(SKY_COLOUR)
         screen.blit(frame, (0,0))
         pygame.display.flip()
+
+        print(player.look_vector)
 
 def generate_frame(playerpos : Vector2, lookvector:Vector2) -> pygame.surface:
     camera_plane = lookvector.rotate(90)
