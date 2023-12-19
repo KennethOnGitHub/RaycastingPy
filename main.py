@@ -4,7 +4,7 @@ from pygame import Vector2 as Vector2 #I don't like writing pygame.Vector2
 import raycast
 
 SCREEN_SIZE = pygame.Vector2(1380, 720)
-RENDER_RES = pygame.Vector2(1000, 720)
+RENDER_RES = pygame.Vector2(700, 720)
 HORIZONTAL_RRES = int(RENDER_RES.x)
 VERTICAL_RRES = int(RENDER_RES.y)
 HALF_VERT_RRES = int(VERTICAL_RRES / 2)
@@ -73,7 +73,7 @@ def main():
         screen.blit(frame, (0,0))
         pygame.display.flip()
 
-        print(player.pos)
+        print("pos is" + str(player.pos))
 
 def generate_frame(playerpos : Vector2, lookvector:Vector2) -> pygame.surface:
     camera_plane = lookvector.rotate(90)
@@ -84,7 +84,7 @@ def generate_frame(playerpos : Vector2, lookvector:Vector2) -> pygame.surface:
         ray_vector = lookvector + (camera_plane * plane_scalar) 
         ray = raycast.WorldRay(playerpos, ray_vector, world)
 
-        line_height = int(SCREEN_SIZE.y / ray.length  )
+        line_height = int(SCREEN_SIZE.y / ray.length)
         half_line = int(line_height/2)
         screen_vertical_mid = int(SCREEN_SIZE.y/2)
 
@@ -110,7 +110,7 @@ def generate_frame(playerpos : Vector2, lookvector:Vector2) -> pygame.surface:
 #     else:
 #         return None
     
-
+#todo, implement the optimised DDA in https://lodev.org/cgtutor/raycasting.html where the squrt is not used
 
 
         
