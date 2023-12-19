@@ -18,7 +18,7 @@ class WorldRay(Ray): #make just one ray in the future, and then have an option t
             x = int(self.hit_pos.x)
             y = int(self.hit_pos.y)
 
-            if world[y][x] == 1:
+            if world[y][x] >= 1:
                 self.length = (self.hit_pos - start).length()
                 break
 
