@@ -7,8 +7,6 @@ class Ray:
 
 
 class WorldRay(Ray): #make just one ray in the future, and then have an option to also check if I am counting enemies
-    step: int = 0.1
-    max_length: int = 50
     def __init__(self, start: Vector2, direction: Vector2, world: list) -> None:
         super().__init__(start, direction)
         self.hit = False
@@ -20,7 +18,6 @@ class WorldRay(Ray): #make just one ray in the future, and then have an option t
         dydx_squared = (direction.y * direction.y)/(direction.x * direction.x) if direction.x != 0 else 999_999_999
         dxdy_squared = (direction.x * direction.x)/(direction.y * direction.y) if direction.y != 0 else 999_999_999
         
-
         ray_step_length = Vector2(math.sqrt(1 + dydx_squared), math.sqrt(1 + dxdy_squared)) #the distance a ray has to travel to step by one x coordinate/y coordinate
 
         ray_length = Vector2(0,0)#a little odd use of vectors, but the x component represents the length of the x ray and the y component is the length of the y ray.
@@ -44,14 +41,15 @@ class WorldRay(Ray): #make just one ray in the future, and then have an option t
         while self.hit == False:
             if ray_length.x < ray_length.y:
                 map_coords.x += map_step.x
-                ray_length.x += ray_step_length.x
                 self.length = ray_length.x
+                ray_length.x += ray_step_length.x
+
             else:
-                map_coords.x += map_step.y
-                ray_length.y += ray_step_length.y
+                map_coords.y += map_step.y
                 self.length = ray_length.y
-        
-            if world[int(map_coords.y)][int(map_coords.x)]:
+                ray_length.y += ray_step_length.y
+
+            if world[int(map_coords.y)][int(map_coords.x)] >= 1:
                 self.hit = True
 
         
